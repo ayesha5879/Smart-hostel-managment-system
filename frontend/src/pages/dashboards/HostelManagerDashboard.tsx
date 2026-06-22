@@ -67,7 +67,7 @@ const HostelManagerDashboard: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/60 to-transparent" />
         
         <div className="relative z-10">
-          <h1 className="text-2xl font-extrabold tracking-tight">Aegis Operations Control</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight">Claria Operations Control</h1>
           <p className="text-sm text-slate-300 mt-1 max-w-lg">Allocate rooms, verify visitors, check attendance trends, and monitor student reports with real-time operations dashboards.</p>
         </div>
         <div className="relative z-10 flex gap-3">

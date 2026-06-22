@@ -25,7 +25,7 @@ export class PdfService {
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(22);
-    doc.text('AEGIS UNIVERSITY HOSTEL', 15, 18);
+    doc.text('CLARIA UNIVERSITY HOSTEL', 15, 18);
     
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
@@ -131,8 +131,8 @@ export class PdfService {
     doc.setTextColor(textGray);
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text('Thank you for staying at Aegis University Hostels. Please pay monthly dues by the 5th of every month.', 15, 275);
-    doc.text('For queries, write to: billing@aegishostel.edu. This is an auto-generated official document.', 15, 280);
+    doc.text('Thank you for staying at Claria University Hostel. Please pay monthly dues by the 5th of every month.', 15, 275);
+    doc.text('For queries, write to: billing@clariahostel.edu. This is an auto-generated official document.', 15, 280);
 
     const pdfBase64 = doc.output('datauristring').split(',')[1];
     return Buffer.from(pdfBase64, 'base64');

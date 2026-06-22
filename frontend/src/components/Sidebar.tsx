@@ -89,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, name }) => {
           <Flame className="w-6 h-6 animate-pulse" />
         </div>
         <div>
-          <h1 className="font-extrabold text-lg leading-tight tracking-tight bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">AEGIS HOSTEL</h1>
+          <h1 className="font-extrabold text-base leading-tight tracking-tight bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">CLARIA UNIV. HOSTEL</h1>
           <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{role.replace('_', ' ')}</span>
         </div>
       </div>

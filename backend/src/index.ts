@@ -127,7 +127,7 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`🚀 Aegis Hostel Backend active on port ${PORT}`);
+  console.log(`🚀 Claria University Hostel Backend active on port ${PORT}`);
 });
 
 export default app;

@@ -37,7 +37,7 @@ const Login: React.FC = () => {
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&auto=format&fit=crop&q=80"
-          alt="Aegis Hostel"
+          alt="Claria University Hostel"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Overlay */}
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
             <div className="bg-white/10 backdrop-blur p-2 rounded-xl border border-white/10">
               <Flame className="w-6 h-6 text-indigo-400" />
             </div>
-            <span className="text-white font-extrabold text-xl tracking-tight">AEGIS HOSTEL</span>
+            <span className="text-white font-extrabold text-xl tracking-tight">CLARIA UNIVERSITY HOSTEL</span>
           </div>
           <div>
             <h2 className="text-4xl font-extrabold text-white leading-tight mb-4">
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
               <Flame className="w-8 h-8 animate-pulse text-primary" />
             </div>
             <h1 className="text-2xl font-extrabold tracking-tight text-white">Welcome Back</h1>
-            <p className="text-sm text-slate-400 mt-1">Aegis University Hostel Management Platform</p>
+            <p className="text-sm text-slate-400 mt-1">Claria University Hostel Management Platform</p>
           </div>
 
           {error && (

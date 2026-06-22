@@ -316,7 +316,7 @@ const VisitorManagement: React.FC = () => {
           <div className="bg-card border border-border w-full max-w-sm rounded-3xl shadow-xl overflow-hidden page-fade text-left relative">
             <div className="px-6 py-5 border-b border-border flex justify-between items-center bg-gradient-to-r from-primary to-indigo-600 text-white">
               <div>
-                <h3 className="font-extrabold text-sm tracking-wide">AEGIS VISITOR GATEPASS</h3>
+                <h3 className="font-extrabold text-sm tracking-wide">CLARIA VISITOR GATEPASS</h3>
                 <p className="text-[10px] text-white/80 font-medium">Secured Verification Identity</p>
               </div>
               <button onClick={() => setSelectedPass(null)} className="text-xs font-semibold text-white/90 hover:text-white">Close</button>

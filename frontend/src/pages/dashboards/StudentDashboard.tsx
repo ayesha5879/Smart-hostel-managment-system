@@ -108,7 +108,7 @@ const StudentDashboard: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/50 to-transparent" />
         
         <div className="relative z-10">
-          <h1 className="text-2xl font-extrabold tracking-tight">Welcome Back to Aegis Hostels</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight">Welcome Back to Claria University Hostel</h1>
           <p className="text-sm text-slate-300 mt-1">Roll Number: {profile.studentId} | Dept: {profile.department} (Semester {profile.semester})</p>
         </div>
         <div className="relative z-10 flex gap-2 text-xs font-bold px-3 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl items-center backdrop-blur-md">
