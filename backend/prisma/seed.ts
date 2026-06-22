@@ -4,6 +4,13 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log('🌱 Checking database seeding requirements...');
+  const userCount = await prisma.user.count();
+  if (userCount > 0) {
+    console.log('⚠️ Database already contains users. Skipping seeding to prevent data loss.');
+    return;
+  }
+
   console.log('🌱 Starting database seeding...');
 
   await prisma.aIAnalytics.deleteMany({});

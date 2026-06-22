@@ -23,7 +23,7 @@ const app: Express = express();
 const PORT = process.env.PORT || 5000;
 
 // Security Middlewares
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({
   origin: '*', // Adjust to specific frontend domain in production
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
