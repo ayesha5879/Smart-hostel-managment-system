@@ -56,17 +56,25 @@ const HostelManagerDashboard: React.FC = () => {
 
   return (
     <div className="space-y-8 page-fade">
-      {/* Welcome Banner */}
-      <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Aegis Operations Control</h1>
-          <p className="text-sm text-muted-foreground mt-1">Allocate rooms, verify visitors, check attendance trends, and monitor student reports.</p>
+      {/* Welcome Banner with Image */}
+      <div className="relative overflow-hidden bg-slate-900 text-white p-8 rounded-2xl border border-border shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4 min-h-[160px]">
+        {/* Banner Background Image */}
+        <img 
+          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&auto=format&fit=crop&q=80" 
+          alt="Operations Control" 
+          className="absolute inset-0 w-full h-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/60 to-transparent" />
+        
+        <div className="relative z-10">
+          <h1 className="text-2xl font-extrabold tracking-tight">Aegis Operations Control</h1>
+          <p className="text-sm text-slate-300 mt-1 max-w-lg">Allocate rooms, verify visitors, check attendance trends, and monitor student reports with real-time operations dashboards.</p>
         </div>
-        <div className="flex gap-3">
+        <div className="relative z-10 flex gap-3">
           <NavLink to="/students" className="px-4 py-2.5 bg-primary text-primary-foreground font-semibold rounded-xl text-sm transition-all hover:bg-primary/95 shadow-md shadow-primary/10">
             Student Register
           </NavLink>
-          <NavLink to="/rooms" className="px-4 py-2.5 bg-secondary text-foreground font-semibold rounded-xl text-sm transition-all hover:bg-secondary/80 border border-border">
+          <NavLink to="/rooms" className="px-4 py-2.5 bg-slate-800 text-white font-semibold rounded-xl text-sm transition-all hover:bg-slate-700 border border-slate-700">
             Assign Rooms
           </NavLink>
         </div>

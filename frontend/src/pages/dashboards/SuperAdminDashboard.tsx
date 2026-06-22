@@ -61,14 +61,21 @@ const SuperAdminDashboard: React.FC = () => {
 
   return (
     <div className="space-y-8 page-fade">
-      {/* Greeting Header */}
-      <div className="flex justify-between items-center bg-card p-6 rounded-2xl border border-border shadow-sm">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome back, Super Admin</h1>
-          <p className="text-sm text-muted-foreground mt-1">Hostel operations, room capacity models, and ledger statuses.</p>
+      {/* Greeting Header with image */}
+      <div className="relative overflow-hidden bg-slate-900 text-white p-8 rounded-2xl border border-border shadow-md flex justify-between items-center min-h-[140px]">
+        <img 
+          src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&auto=format&fit=crop&q=80" 
+          alt="Super Admin Banner" 
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-900/60 to-transparent" />
+        
+        <div className="relative z-10">
+          <h1 className="text-2xl font-extrabold tracking-tight">Welcome back, Super Admin</h1>
+          <p className="text-sm text-slate-300 mt-1">Hostel operations, room capacity models, and ledger statuses.</p>
         </div>
-        <div className="bg-primary/10 text-primary px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 border border-primary/20">
-          <Activity className="w-4 h-4 animate-spin" /> Live Metrics Active
+        <div className="relative z-10 bg-primary/20 text-primary-foreground px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 border border-primary/30 backdrop-blur-md">
+          <Activity className="w-4 h-4 text-primary-foreground" /> Live Metrics Active
         </div>
       </div>
 

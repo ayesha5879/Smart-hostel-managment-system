@@ -98,13 +98,21 @@ const StudentDashboard: React.FC = () => {
   return (
     <div className="space-y-8 page-fade">
       {/* Overview Greeting */}
-      <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome Back to Aegis Hostels</h1>
-          <p className="text-sm text-muted-foreground mt-1">Roll Number: {profile.studentId} | Dept: {profile.department} (Semester {profile.semester})</p>
+      {/* Overview Greeting with background image */}
+      <div className="relative overflow-hidden bg-slate-900 text-white p-8 rounded-2xl border border-border shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4 min-h-[140px]">
+        <img 
+          src="https://images.unsplash.com/photo-1527853787696-f7be74f2e39a?w=1200&auto=format&fit=crop&q=80" 
+          alt="Student Banner" 
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/50 to-transparent" />
+        
+        <div className="relative z-10">
+          <h1 className="text-2xl font-extrabold tracking-tight">Welcome Back to Aegis Hostels</h1>
+          <p className="text-sm text-slate-300 mt-1">Roll Number: {profile.studentId} | Dept: {profile.department} (Semester {profile.semester})</p>
         </div>
-        <div className="flex gap-2 text-xs font-semibold px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-xl items-center">
-          <CheckCircle2 className="w-4 h-4" /> Residency Active
+        <div className="relative z-10 flex gap-2 text-xs font-bold px-3 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-xl items-center backdrop-blur-md">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Residency Active
         </div>
       </div>
 
