@@ -1,0 +1,230 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         String
+  avatarUrl    String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  studentProfile     Student?
+  complaintsAssigned Complaint[]        @relation("AssignedWarden")
+  complaintComments  ComplaintComment[]
+  visitorsApproved   Visitor[]          @relation("ApprovedByStaff")
+  attendanceMarked   Attendance[]       @relation("AttendanceMarker")
+  notifications      Notification[]
+  auditLogs          AuditLog[]
+}
+
+model Guardian {
+  id            String    @id @default(uuid())
+  name          String
+  relation      String
+  contactNumber String
+  cnic          String
+  email         String?
+  address       String
+  students      Student[]
+}
+
+model Student {
+  id                String        @id @default(uuid())
+  userId            String        @unique
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId         String        @unique // University Roll Number
+  cnic              String        @unique // Passport or CNIC
+  gender            String
+  department        String
+  semester          Int
+  phone             String
+  emergencyContact  String
+  address           String
+  status            String        @default("ACTIVE")
+  guardianId        String
+  guardian          Guardian      @relation(fields: [guardianId], references: [id])
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  // Relations
+  roomAllocations RoomAllocation[]
+  fees            Fee[]
+  complaints      Complaint[]
+  visitors        Visitor[]
+  attendance      Attendance[]
+}
+
+model Room {
+  id          String   @id @default(uuid())
+  roomNumber  String   @unique
+  floor       Int
+  building    String
+  capacity    Int
+  roomType    String
+  baseFee     Float
+  isMaintenance Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  roomAllocations RoomAllocation[]
+}
+
+model RoomAllocation {
+  id          String    @id @default(uuid())
+  studentId   String
+  student     Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  roomId      String
+  room        Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  allocatedAt DateTime  @default(now())
+  vacatedAt   DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  fees        Fee[]
+}
+
+model Fee {
+  id               String         @id @default(uuid())
+  studentId        String
+  student          Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  roomAllocationId String
+  roomAllocation   RoomAllocation @relation(fields: [roomAllocationId], references: [id], onDelete: Cascade)
+  amount           Float
+  dueDate          DateTime
+  status           String         @default("PENDING")
+  billingPeriod    String // e.g. "June 2026"
+  utilityCharges   Float          @default(0)
+  securityDeposit  Float          @default(0)
+  miscCharges      Float          @default(0)
+  lateFee          Float          @default(0)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  // Relations
+  payments         Payment[]
+}
+
+model Payment {
+  id                   String        @id @default(uuid())
+  feeId                String
+  fee                  Fee           @relation(fields: [feeId], references: [id], onDelete: Cascade)
+  amountPaid           Float
+  paymentDate          DateTime      @default(now())
+  paymentMethod        String        @default("ONLINE")
+  transactionReference String        @unique
+  invoiceNumber        String        @unique
+  receiptPdfUrl        String?
+  status               String        @default("SUCCESS")
+  createdAt            DateTime      @default(now())
+}
+
+model Complaint {
+  id               String            @id @default(uuid())
+  studentId        String
+  student          Student           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  title            String
+  description      String
+  category         String
+  priority         String            @default("MEDIUM")
+  status           String            @default("SUBMITTED")
+  assignedWardenId String?
+  assignedWarden   User?             @relation("AssignedWarden", fields: [assignedWardenId], references: [id], onDelete: SetNull)
+  imageUrl         String?
+  timeline         Json              // History steps as JSON array: [{ status: "SUBMITTED", time: "...", note: "..." }]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  // Relations
+  comments         ComplaintComment[]
+}
+
+model ComplaintComment {
+  id          String    @id @default(uuid())
+  complaintId String
+  complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content     String
+  createdAt   DateTime  @default(now())
+}
+
+model Visitor {
+  id               String        @id @default(uuid())
+  name             String
+  cnic             String
+  contactNumber    String
+  relation         String
+  studentId        String
+  student          Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  purpose          String
+  checkInTime      DateTime      @default(now())
+  checkOutTime     DateTime?
+  securityPassCode String        @unique
+  qrCodeToken      String        @unique
+  status           String        @default("PENDING")
+  approvedById     String?
+  approvedBy       User?         @relation("ApprovedByStaff", fields: [approvedById], references: [id], onDelete: SetNull)
+  createdAt        DateTime      @default(now())
+}
+
+model Attendance {
+  id           String           @id @default(uuid())
+  studentId    String
+  student      Student          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  date         DateTime         // Day date format (YYYY-MM-DD)
+  status       String           @default("PRESENT")
+  checkInTime  DateTime?
+  checkOutTime DateTime?
+  qrScanned    Boolean          @default(false)
+  markedById   String?
+  markedBy     User?            @relation("AttendanceMarker", fields: [markedById], references: [id], onDelete: SetNull)
+  createdAt    DateTime         @default(now())
+
+  @@unique([studentId, date])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String           @default("GENERAL")
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  entity    String
+  entityId  String?
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model AIAnalytics {
+  id            String       @id @default(uuid())
+  metricType    String
+  forecastData  Json       // Prediction values over time
+  insights      String
+  confidenceScore Float
+  generatedAt   DateTime     @default(now())
+}
